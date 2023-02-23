@@ -1,26 +1,27 @@
 const express = require("express");
+const dotenv = require("dotenv");
 const app = express();
+
+dotenv.config({ path: "./config.env" });
+const PORT = process.env.PORT;
+
+//Mongodb connection
+require("../server/db/conn");
+
+//To read json responses
+app.use(express.json());
+
+// const User = require("./model/userSchema");
+
+//Routes
+app.use(require("../server/router/auth"));
 
 //Middleware
 const middleware = (req, res, next) => {
   next();
 };
 
-app.get("/", (req, res) => {
-  res.send("Hello woorld");
-});
-app.get("/contact", (req, res) => {
-  res.send("Coontact Page");
-});
-app.get("/about", middleware, (req, res) => {
-  res.send("About page");
-});
-app.get("/signin", (req, res) => {
-  res.send("signin Page");
-});
-app.get("/signup", (req, res) => {
-  res.send("Signup");
-});
-app.listen(3080, () => {
-  console.log(`Server is running at port 3080`);
+
+app.listen(PORT, () => {
+  console.log(`Server is running at port ${PORT}`);
 });
