@@ -1,0 +1,27 @@
+.inline{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+
+.signup{
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    font-size: 12px;
+    background-color: rgba(225,225,225, 0.2);
+}
+
+.title{
+    font-weight: bold;
+    font-size: 16px;
+}
+.acc-exist{
+    text-align: right;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
