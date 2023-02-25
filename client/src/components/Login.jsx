@@ -32,7 +32,13 @@ const Login = () => {
     const response = await res.json();
     if (res.status === 201) {
       setLoginInfo({ email: "", password: "" });
-      navigate("/");
+      document.getElementById("login-form").reset();
+
+      document.getElementById("login-btn").classList.add("d-none");
+      document.getElementById("login-success-btn").classList.remove("d-none");
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
     } else {
       alert(`${response.error}. Try again`);
     }
@@ -40,7 +46,7 @@ const Login = () => {
 
   return (
     <div class="container signup mt-4 p-5 col-md-5 col-sm-8 col-xs-12">
-      <form>
+      <form id="login-form">
         <div className="form-group text-center title mb-3 text-secondary">
           Login to your account
         </div>
@@ -76,8 +82,18 @@ const Login = () => {
           </small>
         </div>
         <div>
-          <button class="btn btn-primary mt-3 w-100" onClick={handleSubmit}>
+          <button
+            class="btn btn-primary mt-3 w-100"
+            id="login-btn"
+            onClick={handleSubmit}
+          >
             Login
+          </button>
+          <button
+            className="btn btn-success w-100 d-none"
+            id="login-success-btn"
+          >
+            Login Successful
           </button>
         </div>
       </form>

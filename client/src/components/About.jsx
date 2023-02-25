@@ -2,9 +2,39 @@ import React from "react";
 import "./about.css";
 import profile from "../assets/profile2.png";
 import { FaEdit } from "react-icons/fa";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 const About = () => {
+  const navigate = useNavigate();
   const [activeTab, setActivetab] = useState("about");
+  const [userData, setUserData] = useState({});
+
+  const callAboutPage = async () => {
+    try {
+      const res = await fetch("/about", {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const data = await res.json();
+      setUserData(data);
+
+      if (res.status !== 200) {
+        throw new Error(res.error);
+      }
+    } catch (error) {
+      console.log(error);
+      navigate("/login");
+    }
+  };
+
+  useEffect(() => {
+    callAboutPage();
+  }, []);
 
   const AboutTabContent = () => {
     return (
@@ -20,11 +50,11 @@ const About = () => {
           <div>Occupation:</div>
         </div>
         <div className="right-side d-flex flex-column" style={{ gap: "10px" }}>
-          <div>477839930120387</div>
-          <div>Vivek Thorat</div>
-          <div>vivekthorat.vt79@gmail.com</div>
-          <div>9876543211</div>
-          <div>Web Developer</div>
+          <div>{userData._id}</div>
+          <div>{userData.name}</div>
+          <div>{userData.email}</div>
+          <div>{userData.phone}</div>
+          <div>{userData.work}</div>
         </div>
       </div>
     );

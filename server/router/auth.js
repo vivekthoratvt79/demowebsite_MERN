@@ -2,25 +2,11 @@ const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const authenticate = require("../middleware/authenticate");
 
 require("../db/conn");
 const User = require("../model/userSchema");
 
-router.get("/", (req, res) => {
-  res.send("Hello woorld");
-});
-router.get("/contact", (req, res) => {
-  res.send("Coontact Page");
-});
-router.get("/about", (req, res) => {
-  res.send("About page");
-});
-router.get("/signin", (req, res) => {
-  res.send("signin Page");
-});
-router.get("/signup", (req, res) => {
-  res.send("Signup");
-});
 //-------------------------------------USING PROMISES----------------------------------------
 // router.post("/register", (req, res) => {
 //   const { name, email, phone, work, password, cpassword } = req.body;
@@ -102,6 +88,31 @@ router.post("/login", async (req, res) => {
       httpOnly: true,
     });
     res.status(201).json({ message: "Login Successful", userData });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/about", authenticate, (req, res) => {
+  res.send(req.rootUser);
+});
+
+router.get("/getData", authenticate, (req, res) => {
+  res.send(req.rootUser);
+});
+
+router.post("/contact", authenticate, async (req, res) => {
+  try {
+    const { name, email, phone, message } = req.body;
+    if (!name || !email || !phone || !message) {
+      res.json({ error: "Please fill the contact form" });
+    }
+    const userContact = await User.findOne({ _id: req.userID });
+    if (userContact) {
+      const userMessage = await userContact.text(name, email, phone, message);
+      // await userContact.save();
+      res.status(201).json({ message: "successful" });
+    }
   } catch (error) {
     console.log(error);
   }

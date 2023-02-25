@@ -51,6 +51,10 @@ input::placeholder{
     transition: transform 0.5s ease;
 }
 
+.disabled-input{
+    cursor: no-drop;
+}
+
  @media only screen and (max-width: 840px) {
     .u-display {
       flex-direction: column;
