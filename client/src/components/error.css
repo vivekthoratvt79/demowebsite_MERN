@@ -1,0 +1,16 @@
+.bg-text{
+    position: absolute;
+    z-index: -100;
+    left: 50%;
+    top: 50%;
+    font-size: 300px;
+    transform: translate(-50%, -50%);
+    font-weight: 900;
+    opacity: 0.2;
+    color: lightblue;
+}
+
+.error-text>div{
+    font-size: 30px;
+    font-weight: bold;
+}

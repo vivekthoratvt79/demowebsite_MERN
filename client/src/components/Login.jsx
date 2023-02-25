@@ -1,8 +1,43 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
+
+  const handleInput = (e) => {
+    let key = e.target.name;
+    let value = e.target.value;
+    setLoginInfo({ ...loginInfo, [key]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const { email, password } = loginInfo;
+    if (!email || !password) {
+      alert("All fields are mandatory.");
+      return false;
+    }
+    const res = await fetch("/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+    const response = await res.json();
+    if (res.status === 201) {
+      setLoginInfo({ email: "", password: "" });
+      navigate("/");
+    } else {
+      alert(`${response.error}. Try again`);
+    }
+  };
+
   return (
     <div class="container signup mt-4 p-5 col-md-5 col-sm-8 col-xs-12">
       <form>
@@ -11,18 +46,19 @@ const Login = () => {
         </div>
 
         <div class="form-group mt-1">
-          <label for="email">Email address</label>
+          <label htmlFor="email">Email address</label>
           <input
             type="email"
             class="form-control"
             name="email"
             id="email"
-            placeholder="name@example.com"
+            placeholder="Registered Email ID"
+            onChange={handleInput}
           />
         </div>
 
         <div class="form-group mt-1">
-          <label for="password">Password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             name="password"
@@ -30,6 +66,7 @@ const Login = () => {
             id="password"
             placeholder="******"
             required
+            onChange={handleInput}
           />
         </div>
         <div className="mt-3">
@@ -39,7 +76,9 @@ const Login = () => {
           </small>
         </div>
         <div>
-          <button class="btn btn-primary mt-3 w-100">Login</button>
+          <button class="btn btn-primary mt-3 w-100" onClick={handleSubmit}>
+            Login
+          </button>
         </div>
       </form>
     </div>

@@ -2,6 +2,7 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+import "../App.css";
 
 const Navbar = () => {
   return (

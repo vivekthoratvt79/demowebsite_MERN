@@ -1,0 +1,40 @@
+.u-row{
+    text-align: center;
+}
+
+.about{
+    box-shadow: rgba(99, 99, 99, 0.5) 0px 2px 8px 0px;
+}
+ 
+.ul-skill{
+    list-style-type: none;
+    margin-top: 15px;
+    margin-right: 10px;
+}
+
+.skills{
+    /* box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px; */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 8px;
+    margin-bottom: 9px;
+}
+
+.tab-header{
+    gap: 20px;
+    font-weight: 900;
+    font-size: 14px;
+    box-shadow: 0 8px 6px -6px lightgrey;
+    padding-bottom: 4px;
+} 
+
+.tab-header>div{
+cursor: pointer;
+}
+.tab-header>.active{
+    color: blue;
+    border-bottom: 1px blue dotted;
+}
+
+.right-side{
+    color: #4569a7
+}

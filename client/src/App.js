@@ -7,8 +7,9 @@ import Contact from "./components/Contact";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import "bootstrap/dist/css/bootstrap.min.css";
-
 import "./App.css";
+import ErrorPage from "./components/ErrorPage";
+
 const App = () => {
   return (
     <>
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/*" element={<ErrorPage />} />
       </Routes>
     </>
   );
