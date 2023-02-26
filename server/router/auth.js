@@ -101,6 +101,11 @@ router.get("/getData", authenticate, (req, res) => {
   res.send(req.rootUser);
 });
 
+router.get("/logout", (req, res) => {
+  res.clearCookie("jwtoken");
+  res.status(200).send("Deleted");
+});
+
 router.post("/contact", authenticate, async (req, res) => {
   try {
     const { name, email, phone, message } = req.body;

@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { UserContext } from "../App";
 
 const Login = () => {
+  const { dispatch } = useContext(UserContext);
   const navigate = useNavigate();
   const [loginInfo, setLoginInfo] = useState({ email: "", password: "" });
 
@@ -31,9 +33,9 @@ const Login = () => {
     });
     const response = await res.json();
     if (res.status === 201) {
+      dispatch({ type: "CHECK_LOGIN", payload: true });
       setLoginInfo({ email: "", password: "" });
       document.getElementById("login-form").reset();
-
       document.getElementById("login-btn").classList.add("d-none");
       document.getElementById("login-success-btn").classList.remove("d-none");
       setTimeout(() => {

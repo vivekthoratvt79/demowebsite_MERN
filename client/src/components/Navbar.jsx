@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import "../App.css";
+import { UserContext } from "../App";
 
 const Navbar = () => {
+  const { state } = useContext(UserContext);
   return (
     <>
       <nav class="navbar navbar-expand-lg p-2 navbar-light bg-light">
@@ -40,16 +42,26 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/login">
-                Login
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link class="nav-link" to="/signup">
-                Registration
-              </Link>
-            </li>
+            {!state ? (
+              <>
+                <li class="nav-item">
+                  <Link class="nav-link" to="/login">
+                    Login
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link class="nav-link" to="/signup">
+                    Registration
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <li class="nav-item">
+                <Link class="nav-link" to="/logout">
+                  Logout
+                </Link>
+              </li>
+            )}
           </ul>
         </div>
       </nav>
